@@ -7,7 +7,8 @@
     "repository": "ArjixWasTaken/crunchydesk",
     "author": {
         "name": "ArjixWasTaken",
-        "url": "https://github.com/ArjixWasTaken/crunchydesk"
+        "url": "https://github.com/ArjixWasTaken/crunchydesk",
+        "email": "arjixg53@gmail.com"
     },
     "build": {
         "appId": "com.github.arjixwastaken.crunchydesk",
@@ -80,6 +81,7 @@
         "build:mac:arm64": "yarn run clean && electron-builder --mac dmg:arm64",
         "build:win": "yarn run clean && electron-builder --win",
         "lint": "xo",
+        "format": "prettier --write .",
         "changelog": "auto-changelog",
         "plugins": "yarn run plugin:adblocker",
         "plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",

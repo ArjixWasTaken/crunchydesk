@@ -2385,7 +2385,6 @@ __metadata:
     node-gyp: ^9.3.1
     node-notifier: ^10.0.1
     playwright: ^1.29.2
-    typescript: ^4.9.5
     vudio: ^2.1.1
     xo: ^0.53.1
   languageName: unknown
@@ -8323,7 +8322,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.9.3, typescript@npm:^4.9.5":
+"typescript@npm:^4.9.3":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -8333,7 +8332,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.9.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.9.3#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
   bin:

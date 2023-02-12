@@ -15,97 +15,102 @@ let originalMaximized;
 let win;
 let options;
 
-const pipPosition = () => (options.savePosition && options["pip-position"]) || [10, 10];
+const pipPosition = () =>
+    (options.savePosition && options["pip-position"]) || [10, 10];
 const pipSize = () => (options.saveSize && options["pip-size"]) || [450, 275];
 
 const setLocalOptions = (_options) => {
-	options = { ...options, ..._options };
-	setOptions("picture-in-picture", _options);
-}
-
+    options = { ...options, ..._options };
+    setOptions("picture-in-picture", _options);
+};
 
 const adaptors = [];
-const runAdaptors = () => adaptors.forEach(a => a());
+const runAdaptors = () => adaptors.forEach((a) => a());
 
 if (isEnabled("in-app-menu")) {
-	let adaptor = require("./adaptors/in-app-menu");
-	adaptors.push(() => adaptor(win, options, setLocalOptions, togglePiP, isInPiP));
+    let adaptor = require("./adaptors/in-app-menu");
+    adaptors.push(() =>
+        adaptor(win, options, setLocalOptions, togglePiP, isInPiP)
+    );
 }
 
 const togglePiP = async () => {
-	isInPiP = !isInPiP;
-	setLocalOptions({ isInPiP });
+    isInPiP = !isInPiP;
+    setLocalOptions({ isInPiP });
 
-	if (isInPiP) {
-		originalFullScreen = win.isFullScreen();
-		if (originalFullScreen) win.setFullScreen(false);
-		originalMaximized = win.isMaximized();
-		if (originalMaximized) win.unmaximize();
-	
-		originalPosition = win.getPosition();
-		originalSize = win.getSize();
+    if (isInPiP) {
+        originalFullScreen = win.isFullScreen();
+        if (originalFullScreen) win.setFullScreen(false);
+        originalMaximized = win.isMaximized();
+        if (originalMaximized) win.unmaximize();
 
-		win.webContents.on("before-input-event", blockShortcutsInPiP);
+        originalPosition = win.getPosition();
+        originalSize = win.getSize();
 
-		win.setMaximizable(false);
-		win.setFullScreenable(false);
+        win.webContents.on("before-input-event", blockShortcutsInPiP);
 
-		runAdaptors();
-		win.webContents.send("pip-toggle", true);
+        win.setMaximizable(false);
+        win.setFullScreenable(false);
 
-		app.dock?.hide();
-		win.setVisibleOnAllWorkspaces(true, {
-			visibleOnFullScreen: true,
-		});
-		app.dock?.show();
-		if (options.alwaysOnTop) {
-			win.setAlwaysOnTop(true, "screen-saver", 1);
-		}
-	} else {
-		win.webContents.removeListener("before-input-event", blockShortcutsInPiP);
-		win.setMaximizable(true);
-		win.setFullScreenable(true);
+        runAdaptors();
+        win.webContents.send("pip-toggle", true);
 
-		runAdaptors();
-		win.webContents.send("pip-toggle", false);
+        app.dock?.hide();
+        win.setVisibleOnAllWorkspaces(true, {
+            visibleOnFullScreen: true,
+        });
+        app.dock?.show();
+        if (options.alwaysOnTop) {
+            win.setAlwaysOnTop(true, "screen-saver", 1);
+        }
+    } else {
+        win.webContents.removeListener(
+            "before-input-event",
+            blockShortcutsInPiP
+        );
+        win.setMaximizable(true);
+        win.setFullScreenable(true);
 
-		win.setVisibleOnAllWorkspaces(false);
-		win.setAlwaysOnTop(false);
+        runAdaptors();
+        win.webContents.send("pip-toggle", false);
 
-		if (originalFullScreen) win.setFullScreen(true);
-		if (originalMaximized) win.maximize();
-	}
+        win.setVisibleOnAllWorkspaces(false);
+        win.setAlwaysOnTop(false);
 
-	const [x, y] = isInPiP ? pipPosition() : originalPosition;
-	const [w, h] = isInPiP ? pipSize() : originalSize;
-	win.setPosition(x, y);
-	win.setSize(w, h);
+        if (originalFullScreen) win.setFullScreen(true);
+        if (originalMaximized) win.maximize();
+    }
 
-	win.setWindowButtonVisibility?.(!isInPiP);
+    const [x, y] = isInPiP ? pipPosition() : originalPosition;
+    const [w, h] = isInPiP ? pipSize() : originalSize;
+    win.setPosition(x, y);
+    win.setSize(w, h);
+
+    win.setWindowButtonVisibility?.(!isInPiP);
 };
 
 const blockShortcutsInPiP = (event, input) => {
-	const key = input.key.toLowerCase();
+    const key = input.key.toLowerCase();
 
-	if (key === "f") {
-		event.preventDefault();
-	} else if (key === 'escape') {
-		togglePiP();
-		event.preventDefault();
-	};
+    if (key === "f") {
+        event.preventDefault();
+    } else if (key === "escape") {
+        togglePiP();
+        event.preventDefault();
+    }
 };
 
 module.exports = (_win, _options) => {
-	options ??= _options;
-	win ??= _win;
-	setLocalOptions({ isInPiP });
-	injectCSS(win.webContents, path.join(__dirname, "style.css"));
-	ipcMain.on("picture-in-picture", async () => {
-		await togglePiP();
-	});
-	if (options.hotkey) {
-		electronLocalshortcut.register(win, options.hotkey, togglePiP);
-	}
+    options ??= _options;
+    win ??= _win;
+    setLocalOptions({ isInPiP });
+    injectCSS(win.webContents, path.join(__dirname, "style.css"));
+    ipcMain.on("picture-in-picture", async () => {
+        await togglePiP();
+    });
+    if (options.hotkey) {
+        electronLocalshortcut.register(win, options.hotkey, togglePiP);
+    }
 };
 
 module.exports.setOptions = setLocalOptions;

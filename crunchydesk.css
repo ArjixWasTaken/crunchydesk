@@ -1,0 +1,9 @@
+a {
+    -webkit-app-region: no-drag;
+}
+
+/* Disable Image Selection */
+img {
+    -webkit-user-select: none;
+    user-select: none;
+}

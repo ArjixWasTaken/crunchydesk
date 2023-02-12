@@ -1,169 +1,163 @@
 {
-	"name": "youtube-music",
-	"productName": "YouTube Music",
-	"version": "1.19.0",
-	"description": "YouTube Music Desktop App - including custom plugins",
-	"license": "MIT",
-	"repository": "th-ch/youtube-music",
-	"author": {
-		"name": "th-ch",
-		"email": "th-ch@users.noreply.github.com",
-		"url": "https://github.com/th-ch/youtube-music"
-	},
-	"build": {
-		"appId": "com.github.th-ch.youtube-music",
-		"productName": "YouTube Music",
-		"mac": {
-			"identity": null,
-			"files": [
-				"!plugins/taskbar-mediacontrol${/*}"
-			],
-			"target": [
-				{
-					"target": "dmg",
-					"arch": [
-						"x64",
-						"arm64"
-					]
-				}
-			],
-			"icon": "assets/generated/icons/mac/icon.icns"
-		},
-		"win": {
-			"icon": "assets/generated/icons/win/icon.ico",
-			"files": [
-				"!plugins/touchbar${/*}"
-			],
-			"target": [
-				"nsis",
-				"portable"
-			]
-		},
-		"nsis": {
-			"runAfterFinish": false
-		},
-		"linux": {
-			"icon": "assets/generated/icons/png",
-			"files": [
-				"!plugins/{touchbar,taskbar-mediacontrol}${/*}"
-			],
-			"category": "AudioVideo",
-			"target": [
-				"AppImage",
-				"snap",
-				"freebsd",
-				"deb",
-				"rpm"
-			]
-		},
-		"snap": {
-			"slots": [
-				{
-					"mpris": {
-						"interface": "mpris"
-					}
-				}
-			]
-		}
-	},
-	"scripts": {
-		"test": "playwright test",
-		"test:debug": "DEBUG=pw:browser* playwright test",
-		"start": "electron .",
-		"start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
-		"icon": "del-cli assets/generated && electron-icon-builder --input=assets/youtube-music.png --output=assets/generated",
-		"generate:package": "node utils/generate-package-json.js",
-		"postinstall": "yarn run icon && yarn run plugins",
-		"clean": "del-cli dist",
-		"build": "yarn run clean && electron-builder --win --mac --linux",
-		"build:linux": "yarn run clean && electron-builder --linux",
-		"build:mac": "yarn run clean && electron-builder --mac dmg:x64",
-		"build:mac:arm64": "yarn run clean && electron-builder --mac dmg:arm64",
-		"build:win": "yarn run clean && electron-builder --win",
-		"lint": "xo",
-		"changelog": "auto-changelog",
-		"plugins": "yarn run plugin:adblocker && yarn run plugin:bypass-age-restrictions",
-		"plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
-		"plugin:bypass-age-restrictions": "del-cli node_modules/simple-youtube-age-restriction-bypass/package.json && yarn run generate:package simple-youtube-age-restriction-bypass",
-		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
-		"release:mac": "yarn run clean && electron-builder --mac -p always",
-		"release:win": "yarn run clean && electron-builder --win -p always"
-	},
-	"engines": {
-		"node": ">=16.0.0",
-		"npm": "Please use yarn and not npm"
-	},
-	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.25.2",
-		"@ffmpeg/core": "^0.11.0",
-		"@ffmpeg/ffmpeg": "^0.11.6",
-		"@foobar404/wave": "^2.0.4",
-		"async-mutex": "^0.4.0",
-		"browser-id3-writer": "^4.4.0",
-		"butterchurn": "^2.6.7",
-		"butterchurn-presets": "^2.4.7",
-		"chokidar": "^3.5.3",
-		"custom-electron-prompt": "^1.5.1",
-		"custom-electron-titlebar": "^4.1.5",
-		"discord-rpc": "^4.0.1",
-		"electron-better-web-request": "^1.0.1",
-		"electron-debug": "^3.2.0",
-		"electron-is": "^3.0.0",
-		"electron-localshortcut": "^3.2.1",
-		"electron-store": "^8.1.0",
-		"electron-unhandled": "^4.0.1",
-		"electron-updater": "^5.3.0",
-		"filenamify": "^4.3.0",
-		"howler": "^2.2.3",
-		"html-to-text": "^9.0.3",
-		"md5": "^2.3.0",
-		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.8",
-		"node-notifier": "^10.0.1",
-		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4",
-		"vudio": "^2.1.1",
-		"youtubei.js": "^2.9.0",
-		"ytdl-core": "^4.11.1",
-		"ytpl": "^2.3.0"
-	},
-	"devDependencies": {
-		"@playwright/test": "^1.29.2",
-		"auto-changelog": "^2.4.0",
-		"del-cli": "^5.0.0",
-		"electron": "^22.0.2",
-		"electron-builder": "^23.6.0",
-		"electron-devtools-installer": "^3.2.0",
-		"electron-icon-builder": "^2.0.1",
-		"node-gyp": "^9.3.1",
-		"playwright": "^1.29.2",
-		"xo": "^0.53.1"
-	},
-	"resolutions": {
-		"glob-parent": "5.1.2",
-		"minimist": "1.2.7",
-		"yargs-parser": "21.1.1"
-	},
-	"auto-changelog": {
-		"hideCredit": true,
-		"package": true,
-		"unreleased": true,
-		"output": "changelog.md"
-	},
-	"xo": {
-		"envs": [
-			"node",
-			"browser"
-		],
-		"rules": {
-			"quotes": [
-				"error",
-				"double",
-				{
-					"avoidEscape": true,
-					"allowTemplateLiterals": true
-				}
-			]
-		}
-	},
-	"packageManager": "yarn@3.4.1"
+    "name": "crunchydesk",
+    "productName": "Crunchydesk",
+    "version": "0.0.1",
+    "description": "An unofficial desktop client for crunchyroll.",
+    "license": "MIT",
+    "repository": "ArjixWasTaken/crunchydesk",
+    "author": {
+        "name": "ArjixWasTaken",
+        "url": "https://github.com/ArjixWasTaken/crunchydesk"
+    },
+    "build": {
+        "appId": "com.github.arjixwastaken.crunchydesk",
+        "productName": "Crunchydesk",
+        "mac": {
+            "identity": null,
+            "files": [
+                "!plugins/taskbar-mediacontrol${/*}"
+            ],
+            "target": [
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "x64",
+                        "arm64"
+                    ]
+                }
+            ],
+            "icon": "assets/generated/icons/mac/icon.icns"
+        },
+        "win": {
+            "icon": "assets/generated/icons/win/icon.ico",
+            "files": [
+                "!plugins/touchbar${/*}"
+            ],
+            "target": [
+                "nsis",
+                "portable"
+            ]
+        },
+        "nsis": {
+            "runAfterFinish": false
+        },
+        "linux": {
+            "icon": "assets/generated/icons/png",
+            "files": [
+                "!plugins/{touchbar,taskbar-mediacontrol}${/*}"
+            ],
+            "category": "Video",
+            "target": [
+                "AppImage",
+                "snap",
+                "freebsd",
+                "deb",
+                "rpm"
+            ]
+        },
+        "snap": {
+            "slots": [
+                {
+                    "mpris": {
+                        "interface": "mpris"
+                    }
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "test": "playwright test",
+        "test:debug": "DEBUG=pw:browser* playwright test",
+        "start": "electron .",
+        "start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
+        "icon": "del-cli assets/generated && electron-icon-builder --input=assets/crunchyroll.png --output=assets/generated",
+        "generate:package": "node utils/generate-package-json.js",
+        "postinstall": "yarn run icon && yarn run plugins",
+        "clean": "del-cli dist",
+        "build": "yarn run clean && electron-builder --win --mac --linux",
+        "build:linux": "yarn run clean && electron-builder --linux",
+        "build:mac": "yarn run clean && electron-builder --mac dmg:x64",
+        "build:mac:arm64": "yarn run clean && electron-builder --mac dmg:arm64",
+        "build:win": "yarn run clean && electron-builder --win",
+        "lint": "xo",
+        "changelog": "auto-changelog",
+        "plugins": "yarn run plugin:adblocker",
+        "plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
+        "release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
+        "release:mac": "yarn run clean && electron-builder --mac -p always",
+        "release:win": "yarn run clean && electron-builder --win -p always"
+    },
+    "engines": {
+        "node": ">=16.0.0",
+        "npm": "Please use yarn and not npm"
+    },
+    "dependencies": {
+        "@cliqz/adblocker-electron": "^1.25.2",
+        "@ffmpeg/core": "^0.11.0",
+        "@ffmpeg/ffmpeg": "^0.11.6",
+        "@foobar404/wave": "^2.0.4",
+        "async-mutex": "^0.4.0",
+        "browser-id3-writer": "^4.4.0",
+        "butterchurn": "^2.6.7",
+        "butterchurn-presets": "^2.4.7",
+        "chokidar": "^3.5.3",
+        "custom-electron-prompt": "^1.5.1",
+        "custom-electron-titlebar": "^4.1.5",
+        "discord-rpc": "^4.0.1",
+        "electron-better-web-request": "^1.0.1",
+        "electron-debug": "^3.2.0",
+        "electron-is": "^3.0.0",
+        "electron-localshortcut": "^3.2.1",
+        "electron-store": "^8.1.0",
+        "electron-unhandled": "^4.0.1",
+        "electron-updater": "^5.3.0",
+        "filenamify": "^4.3.0",
+        "howler": "^2.2.3",
+        "html-to-text": "^9.0.3",
+        "md5": "^2.3.0",
+        "mpris-service": "^2.1.2",
+        "node-fetch": "^2.6.8",
+        "node-notifier": "^10.0.1",
+        "vudio": "^2.1.1"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.29.2",
+        "auto-changelog": "^2.4.0",
+        "del-cli": "^5.0.0",
+        "electron": "^22.0.2",
+        "electron-builder": "^23.6.0",
+        "electron-devtools-installer": "^3.2.0",
+        "electron-icon-builder": "^2.0.1",
+        "node-gyp": "^9.3.1",
+        "playwright": "^1.29.2",
+        "xo": "^0.53.1"
+    },
+    "resolutions": {
+        "glob-parent": "5.1.2",
+        "minimist": "1.2.7",
+        "yargs-parser": "21.1.1"
+    },
+    "auto-changelog": {
+        "hideCredit": true,
+        "package": true,
+        "unreleased": true,
+        "output": "changelog.md"
+    },
+    "xo": {
+        "envs": [
+            "node",
+            "browser"
+        ],
+        "rules": {
+            "quotes": [
+                "error",
+                "double",
+                {
+                    "avoidEscape": true,
+                    "allowTemplateLiterals": true
+                }
+            ]
+        }
+    },
+    "packageManager": "yarn@3.4.1"
 }

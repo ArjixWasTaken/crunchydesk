@@ -10,17 +10,17 @@ ytmusic-app-layout.pip ytmusic-player-bar .yt-formatted-string {
 
 /* improve the style of the player bar expanding menu */
 ytmusic-app-layout.pip ytmusic-player-expanding-menu {
-	border-radius: 30px;
-	background-color: rgba(0, 0, 0, 0.3);
-	backdrop-filter: blur(5px) brightness(20%);
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px) brightness(20%);
 }
 
 /* fix volumeHud position when both in-app-menu and PiP are active */
 .cet-container ytmusic-app-layout.pip #volumeHud {
-	top: 22px !important;
+    top: 22px !important;
 }
 
 /* disable the video-toggle button when in PiP mode */
 ytmusic-app-layout.pip .video-switch-button {
-	display: none !important;
+    display: none !important;
 }

@@ -734,13 +734,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@protobuf-ts/runtime@npm:^2.7.0":
-  version: 2.8.2
-  resolution: "@protobuf-ts/runtime@npm:2.8.2"
-  checksum: ab322e832bfb347b271a8862b8ef3db27ffa380f9c49f94acb410534586a282ebd8af96d4459f959ad0fe5fbf34183f3f4fe512e50c9a4331b742a7445b16c92
-  languageName: node
-  linkType: hard
-
 "@remusao/guess-url-type@npm:^1.1.2":
   version: 1.2.1
   resolution: "@remusao/guess-url-type@npm:1.2.1"
@@ -1706,13 +1699,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"boolbase@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "boolbase@npm:1.0.0"
-  checksum: 3e25c80ef626c3a3487c73dbfc70ac322ec830666c9ad915d11b701142fab25ec1e63eff2c450c74347acfd2de854ccde865cd79ef4db1683f7c7b046ea43bb0
-  languageName: node
-  linkType: hard
-
 "boolean@npm:^3.0.1":
   version: 3.2.0
   resolution: "boolean@npm:3.2.0"
@@ -1865,15 +1851,6 @@ __metadata:
   dependencies:
     semver: ^7.0.0
   checksum: 66d204657fe36522822a95b288943ad11b58f5eaede235b11d8c4edaa28ce4800087d44a2681524c340494aadb120a0068011acabe99d30e8f11a7d826d83515
-  languageName: node
-  linkType: hard
-
-"busboy@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "busboy@npm:1.6.0"
-  dependencies:
-    streamsearch: ^1.1.0
-  checksum: 32801e2c0164e12106bf236291a00795c3c4e4b709ae02132883fe8478ba2ae23743b11c5735a0aae8afe65ac4b6ca4568b91f0d9fed1fdbc32ede824a73746e
   languageName: node
   linkType: hard
 
@@ -2369,37 +2346,54 @@ __metadata:
   languageName: node
   linkType: hard
 
+"crunchydesk@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "crunchydesk@workspace:."
+  dependencies:
+    "@cliqz/adblocker-electron": ^1.25.2
+    "@ffmpeg/core": ^0.11.0
+    "@ffmpeg/ffmpeg": ^0.11.6
+    "@foobar404/wave": ^2.0.4
+    "@playwright/test": ^1.29.2
+    async-mutex: ^0.4.0
+    auto-changelog: ^2.4.0
+    browser-id3-writer: ^4.4.0
+    butterchurn: ^2.6.7
+    butterchurn-presets: ^2.4.7
+    chokidar: ^3.5.3
+    custom-electron-prompt: ^1.5.1
+    custom-electron-titlebar: ^4.1.5
+    del-cli: ^5.0.0
+    discord-rpc: ^4.0.1
+    electron: ^22.0.2
+    electron-better-web-request: ^1.0.1
+    electron-builder: ^23.6.0
+    electron-debug: ^3.2.0
+    electron-devtools-installer: ^3.2.0
+    electron-icon-builder: ^2.0.1
+    electron-is: ^3.0.0
+    electron-localshortcut: ^3.2.1
+    electron-store: ^8.1.0
+    electron-unhandled: ^4.0.1
+    electron-updater: ^5.3.0
+    filenamify: ^4.3.0
+    howler: ^2.2.3
+    html-to-text: ^9.0.3
+    md5: ^2.3.0
+    mpris-service: ^2.1.2
+    node-fetch: ^2.6.8
+    node-gyp: ^9.3.1
+    node-notifier: ^10.0.1
+    playwright: ^1.29.2
+    vudio: ^2.1.1
+    xo: ^0.53.1
+  languageName: unknown
+  linkType: soft
+
 "crypt@npm:0.0.2":
   version: 0.0.2
   resolution: "crypt@npm:0.0.2"
   checksum: baf4c7bbe05df656ec230018af8cf7dbe8c14b36b98726939cef008d473f6fe7a4fad906cfea4062c93af516f1550a3f43ceb4d6615329612c6511378ed9fe34
-  languageName: node
-  linkType: hard
-
-"css-select@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "css-select@npm:5.1.0"
-  dependencies:
-    boolbase: ^1.0.0
-    css-what: ^6.1.0
-    domhandler: ^5.0.2
-    domutils: ^3.0.1
-    nth-check: ^2.0.1
-  checksum: 2772c049b188d3b8a8159907192e926e11824aea525b8282981f72ba3f349cf9ecd523fdf7734875ee2cb772246c22117fc062da105b6d59afe8dcd5c99c9bda
-  languageName: node
-  linkType: hard
-
-"css-what@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "css-what@npm:6.1.0"
-  checksum: b975e547e1e90b79625918f84e67db5d33d896e6de846c9b584094e529f0c63e2ab85ee33b9daffd05bff3a146a1916bec664e18bb76dd5f66cbff9fc13b2bbe
-  languageName: node
-  linkType: hard
-
-"cssom@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "cssom@npm:0.5.0"
-  checksum: 823471aa30091c59e0a305927c30e7768939b6af70405808f8d2ce1ca778cddcb24722717392438329d1691f9a87cb0183b64b8d779b56a961546d54854fde01
   languageName: node
   linkType: hard
 
@@ -4552,13 +4546,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-escaper@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "html-escaper@npm:3.0.3"
-  checksum: a2678be42c15d2ef6e629775dac0925a729f4615c6593db8358b9262c7565c4627134987c00f548eb4eb76cbc3b3392f78475cd02b022f8ae7aeb9a88280831b
-  languageName: node
-  linkType: hard
-
 "html-to-text@npm:^9.0.3":
   version: 9.0.3
   resolution: "html-to-text@npm:9.0.3"
@@ -5305,15 +5292,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jintr@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "jintr@npm:0.3.1"
-  dependencies:
-    acorn: ^8.8.0
-  checksum: 1fb2454904461c3bbe6b55251dce4ac352fb3b94803773e3d8925ede4a907b5d52a2f30f3f76757c770e1785f34a3665d5cffd710c3ae99837cd157762130a24
-  languageName: node
-  linkType: hard
-
 "jpeg-js@npm:^0.4.2":
   version: 0.4.4
   resolution: "jpeg-js@npm:0.4.4"
@@ -5618,19 +5596,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"linkedom@npm:^0.14.12":
-  version: 0.14.21
-  resolution: "linkedom@npm:0.14.21"
-  dependencies:
-    css-select: ^5.1.0
-    cssom: ^0.5.0
-    html-escaper: ^3.0.3
-    htmlparser2: ^8.0.1
-    uhyphen: ^0.1.0
-  checksum: c82f5532ab76d407a153d4da4168fde8c2aee12901ff26c3f677dbd69639c59901f40bf60529dba677881dff40885b247952e6c56a37c5cd4546768432b00d4c
-  languageName: node
-  linkType: hard
-
 "load-bmfont@npm:^1.3.1, load-bmfont@npm:^1.4.0":
   version: 1.4.1
   resolution: "load-bmfont@npm:1.4.1"
@@ -5783,16 +5748,6 @@ __metadata:
   version: 7.14.1
   resolution: "lru-cache@npm:7.14.1"
   checksum: d72c6713c6a6d86836a7a6523b3f1ac6764768cca47ec99341c3e76db06aacd4764620e5e2cda719a36848785a52a70e531822dc2b33fb071fa709683746c104
-  languageName: node
-  linkType: hard
-
-"m3u8stream@npm:^0.8.6":
-  version: 0.8.6
-  resolution: "m3u8stream@npm:0.8.6"
-  dependencies:
-    miniget: ^4.2.2
-    sax: ^1.2.4
-  checksum: b8f61c1101dd3ad873ff2f3d0e9e6a5139ad17e20990b89ae67f2585043bc2b727151ed85f3e58aabc8a1a95af28e1ee26f69af6ac9e8841ff68129eae2f5ac5
   languageName: node
   linkType: hard
 
@@ -6014,13 +5969,6 @@ __metadata:
   version: 1.0.1
   resolution: "min-indent@npm:1.0.1"
   checksum: bfc6dd03c5eaf623a4963ebd94d087f6f4bbbfd8c41329a7f09706b0cb66969c4ddd336abeb587bc44bc6f08e13bf90f0b374f9d71f9f01e04adc2cd6f083ef1
-  languageName: node
-  linkType: hard
-
-"miniget@npm:^4.2.2":
-  version: 4.2.2
-  resolution: "miniget@npm:4.2.2"
-  checksum: 577a7826cbf521b8ecb31906b3dce55c61b35398318a461f3484681572287208b7ec5a40de7b0bf0b7738f21630d015cc39ba3edcfb69146565f1528ff957612
   languageName: node
   linkType: hard
 
@@ -6378,15 +6326,6 @@ __metadata:
     gauge: ^4.0.3
     set-blocking: ^2.0.0
   checksum: ae238cd264a1c3f22091cdd9e2b106f684297d3c184f1146984ecbe18aaa86343953f26b9520dedd1b1372bc0316905b736c1932d778dbeb1fcf5a1001390e2a
-  languageName: node
-  linkType: hard
-
-"nth-check@npm:^2.0.1":
-  version: 2.1.1
-  resolution: "nth-check@npm:2.1.1"
-  dependencies:
-    boolbase: ^1.0.0
-  checksum: 5afc3dafcd1573b08877ca8e6148c52abd565f1d06b1eb08caf982e3fa289a82f2cae697ffb55b5021e146d60443f1590a5d6b944844e944714a5b549675bcd3
   languageName: node
   linkType: hard
 
@@ -7543,7 +7482,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sax@npm:>=0.6.0, sax@npm:^1.1.3, sax@npm:^1.2.4":
+"sax@npm:>=0.6.0, sax@npm:^1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
   checksum: d3df7d32b897a2c2f28e941f732c71ba90e27c24f62ee918bd4d9a8cfb3553f2f81e5493c7f0be94a11c1911b643a9108f231dd6f60df3fa9586b5d2e3e9e1fe
@@ -7683,13 +7622,6 @@ __metadata:
   dependencies:
     semver: ~7.0.0
   checksum: 1012e9b6c504e559a948078177b3eedbb9d7e4d15878e2bda56314d08db609ca5da485be4ac9f838759faae8057935ee0246fcdf63f1233c86bd9fecb2a5544b
-  languageName: node
-  linkType: hard
-
-"simple-youtube-age-restriction-bypass@https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4":
-  version: 2.5.4
-  resolution: "simple-youtube-age-restriction-bypass@https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4"
-  checksum: b20e5074ebabda23b5e3a80b6c38a64f0e87db6af4e70b71ebfc9e7ce5b18f740247bc8d77d554eafd4a9276fb11d92861b0c7fa4cd18f6a5443227ae3da59c0
   languageName: node
   linkType: hard
 
@@ -7863,13 +7795,6 @@ __metadata:
   dependencies:
     duplexer: ~0.1.1
   checksum: 844b622cfe8b9de45a6007404f613b60aaf85200ab9862299066204242f89a7c8033b1c356c998aa6cfc630f6cd9eba119ec1c6dc1f93e245982be4a847aee7d
-  languageName: node
-  linkType: hard
-
-"streamsearch@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "streamsearch@npm:1.1.0"
-  checksum: 1cce16cea8405d7a233d32ca5e00a00169cc0e19fbc02aa839959985f267335d435c07f96e5e0edd0eadc6d39c98d5435fb5bbbdefc62c41834eadc5622ad942
   languageName: node
   linkType: hard
 
@@ -8426,13 +8351,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uhyphen@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "uhyphen@npm:0.1.0"
-  checksum: 1df304800387900f76365ff8090ee3667534a944184b9330cd96dbf4b1ad3fb0d376969f92f8b03decfc2e701f0d2eabeda7d002c909f2d125062e5e064d23ef
-  languageName: node
-  linkType: hard
-
 "unbox-primitive@npm:^1.0.2":
   version: 1.0.2
   resolution: "unbox-primitive@npm:1.0.2"
@@ -8449,15 +8367,6 @@ __metadata:
   version: 0.1.2
   resolution: "unc-path-regex@npm:0.1.2"
   checksum: a05fa2006bf4606051c10fc7968f08ce7b28fa646befafa282813aeb1ac1a56f65cb1b577ca7851af2726198d59475bb49b11776036257b843eaacee2860a4ec
-  languageName: node
-  linkType: hard
-
-"undici@npm:^5.7.0":
-  version: 5.18.0
-  resolution: "undici@npm:5.18.0"
-  dependencies:
-    busboy: ^1.6.0
-  checksum: 74e0f357c376c745fcca612481a5742866ae36086ad387e626255f4c4a15fc5357d9d0fa4355271b6a633d50f5556c3e85720844680c44861c66e23afca7245f
   languageName: node
   linkType: hard
 
@@ -8943,85 +8852,5 @@ __metadata:
   version: 1.0.0
   resolution: "yocto-queue@npm:1.0.0"
   checksum: 2cac84540f65c64ccc1683c267edce396b26b1e931aa429660aefac8fbe0188167b7aee815a3c22fa59a28a58d898d1a2b1825048f834d8d629f4c2a5d443801
-  languageName: node
-  linkType: hard
-
-"youtube-music@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "youtube-music@workspace:."
-  dependencies:
-    "@cliqz/adblocker-electron": ^1.25.2
-    "@ffmpeg/core": ^0.11.0
-    "@ffmpeg/ffmpeg": ^0.11.6
-    "@foobar404/wave": ^2.0.4
-    "@playwright/test": ^1.29.2
-    async-mutex: ^0.4.0
-    auto-changelog: ^2.4.0
-    browser-id3-writer: ^4.4.0
-    butterchurn: ^2.6.7
-    butterchurn-presets: ^2.4.7
-    chokidar: ^3.5.3
-    custom-electron-prompt: ^1.5.1
-    custom-electron-titlebar: ^4.1.5
-    del-cli: ^5.0.0
-    discord-rpc: ^4.0.1
-    electron: ^22.0.2
-    electron-better-web-request: ^1.0.1
-    electron-builder: ^23.6.0
-    electron-debug: ^3.2.0
-    electron-devtools-installer: ^3.2.0
-    electron-icon-builder: ^2.0.1
-    electron-is: ^3.0.0
-    electron-localshortcut: ^3.2.1
-    electron-store: ^8.1.0
-    electron-unhandled: ^4.0.1
-    electron-updater: ^5.3.0
-    filenamify: ^4.3.0
-    howler: ^2.2.3
-    html-to-text: ^9.0.3
-    md5: ^2.3.0
-    mpris-service: ^2.1.2
-    node-fetch: ^2.6.8
-    node-gyp: ^9.3.1
-    node-notifier: ^10.0.1
-    playwright: ^1.29.2
-    simple-youtube-age-restriction-bypass: "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4"
-    vudio: ^2.1.1
-    xo: ^0.53.1
-    youtubei.js: ^2.9.0
-    ytdl-core: ^4.11.1
-    ytpl: ^2.3.0
-  languageName: unknown
-  linkType: soft
-
-"youtubei.js@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "youtubei.js@npm:2.9.0"
-  dependencies:
-    "@protobuf-ts/runtime": ^2.7.0
-    jintr: ^0.3.1
-    linkedom: ^0.14.12
-    undici: ^5.7.0
-  checksum: 0b9d86c1ec7297ee41b9013d6cb951976d82b2775d9d9d5abf0447d7acb9f36b07ebb689710bf8ccfa256a6f56088f49b699fb1a3e5bac2b0ea7d2daa508c109
-  languageName: node
-  linkType: hard
-
-"ytdl-core@npm:^4.11.1":
-  version: 4.11.2
-  resolution: "ytdl-core@npm:4.11.2"
-  dependencies:
-    m3u8stream: ^0.8.6
-    miniget: ^4.2.2
-    sax: ^1.1.3
-  checksum: 57df38b5b1e4955db0e0c0be8d185f34de9eaee102ad1281d69de91628230cc84e8d46d278409eafa68c4aab4085a0f9fe8de30e9ea8644e011e20cae7f37c0e
-  languageName: node
-  linkType: hard
-
-"ytpl@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "ytpl@npm:2.3.0"
-  dependencies:
-    miniget: ^4.2.2
-  checksum: cec072c4e4b5e19930d498b0e4e69726538e95a452dc0686d4d7c865583f9ed14c33e526bbf1d54a75b7470490b4860eac814a697a98b3b89115ed1a0ea77a39
   languageName: node
   linkType: hard

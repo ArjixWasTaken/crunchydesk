@@ -34,27 +34,32 @@ module.exports = (win, options) => [
         type: "checkbox",
         checked: options.hotkey,
         click: async (item) => {
-            const output = await prompt({
-                title: "Picture in Picture Hotkey",
-                label: "Choose a hotkey for toggling Picture in Picture",
-                type: "keybind",
-                keybindOptions: [{
-                        value: "hotkey",
-                        label: "Hotkey",
-                        default: options.hotkey
-                }],
-                ...promptOptions()
-            }, win)
-        
+            const output = await prompt(
+                {
+                    title: "Picture in Picture Hotkey",
+                    label: "Choose a hotkey for toggling Picture in Picture",
+                    type: "keybind",
+                    keybindOptions: [
+                        {
+                            value: "hotkey",
+                            label: "Hotkey",
+                            default: options.hotkey,
+                        },
+                    ],
+                    ...promptOptions(),
+                },
+                win
+            );
+
             if (output) {
                 const { value, accelerator } = output[0];
                 setOptions({ [value]: accelerator });
-        
+
                 item.checked = !!accelerator;
             } else {
                 // Reset checkbox if prompt was canceled
                 item.checked = !item.checked;
             }
         },
-    }
+    },
 ];

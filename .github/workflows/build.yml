@@ -1,204 +1,204 @@
-name: Build YouTube Music
+name: Build Crunchydesk
 
 on:
-  - push
+    - push
 
 env:
-  NODE_VERSION: "16.x"
+    NODE_VERSION: "16.x"
 
 jobs:
-  build:
-    name: Build YouTube Music
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+    build:
+        name: Build Crunchydesk
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: true
+            matrix:
+                os: [macos-latest, ubuntu-latest, windows-latest]
 
-    steps:
-      - uses: actions/checkout@v3
+        steps:
+            - uses: actions/checkout@v3
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+            - name: Setup NodeJS
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
 
-      - name: Expose yarn config as "$GITHUB_OUTPUT"
-        id: yarn-config
-        shell: bash
-        run: |
-          echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+            - name: Expose yarn config as "$GITHUB_OUTPUT"
+              id: yarn-config
+              shell: bash
+              run: |
+                  echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
-      # Yarn rotates the downloaded cache archives, @see https://github.com/actions/setup-node/issues/325
-      # Yarn cache is also reusable between arch and os.
-      - name: Restore yarn cache
-        uses: actions/cache@v3
-        id: yarn-download-cache
-        with:
-          path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
-          key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-download-cache-
+            # Yarn rotates the downloaded cache archives, @see https://github.com/actions/setup-node/issues/325
+            # Yarn cache is also reusable between arch and os.
+            - name: Restore yarn cache
+              uses: actions/cache@v3
+              id: yarn-download-cache
+              with:
+                  path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
+                  key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
+                  restore-keys: |
+                      yarn-download-cache-
 
-      # Invalidated on yarn.lock changes
-      - name: Restore yarn install state
-        id: yarn-install-state-cache
-        uses: actions/cache@v3
-        with:
-          path: .yarn/ci-cache/
-          key: ${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
+            # Invalidated on yarn.lock changes
+            - name: Restore yarn install state
+              id: yarn-install-state-cache
+              uses: actions/cache@v3
+              with:
+                  path: .yarn/ci-cache/
+                  key: ${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          yarn install --immutable --inline-builds
-        env:
-          # CI optimizations. Overrides yarnrc.yml options (or their defaults) in the CI action.
-          YARN_ENABLE_GLOBAL_CACHE: "false" # Use local cache folder to keep downloaded archives
-          YARN_NM_MODE: "hardlinks-local" # Hardlinks-(local|global) reduces io / node_modules size
-          YARN_INSTALL_STATE_PATH: .yarn/ci-cache/install-state.gz # Very small speedup when lock does not change
+            - name: Install dependencies
+              shell: bash
+              run: |
+                  yarn install --immutable --inline-builds
+              env:
+                  # CI optimizations. Overrides yarnrc.yml options (or their defaults) in the CI action.
+                  YARN_ENABLE_GLOBAL_CACHE: "false" # Use local cache folder to keep downloaded archives
+                  YARN_NM_MODE: "hardlinks-local" # Hardlinks-(local|global) reduces io / node_modules size
+                  YARN_INSTALL_STATE_PATH: .yarn/ci-cache/install-state.gz # Very small speedup when lock does not change
 
-      - name: Test
-        uses: GabrielBB/xvfb-action@v1
-        env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-        with:
-          run: yarn test
+            - name: Test
+              uses: GabrielBB/xvfb-action@v1
+              env:
+                  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+              with:
+                  run: yarn test
 
-      # Build and release if it's the main repository
-      - name: Build and release on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository == 'th-ch/youtube-music'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          yarn run release:mac
+            # Build and release if it's the main repository
+            - name: Build and release on Mac
+              if: startsWith(matrix.os, 'macOS') && github.repository == 'ArjixWasTaken/crunchydesk'
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+              run: |
+                  yarn run release:mac
 
-      - name: Build and release on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository == 'th-ch/youtube-music'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          yarn run release:linux
+            - name: Build and release on Linux
+              if: startsWith(matrix.os, 'ubuntu') && github.repository == 'ArjixWasTaken/crunchydesk'
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+              run: |
+                  yarn run release:linux
 
-      - name: Build and release on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository == 'th-ch/youtube-music'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          yarn run release:win
+            - name: Build and release on Windows
+              if: startsWith(matrix.os, 'windows') && github.repository == 'ArjixWasTaken/crunchydesk'
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+              run: |
+                  yarn run release:win
 
-      # Only build without release if it is a fork
-      - name: Build on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository != 'th-ch/youtube-music'
-        run: |
-          yarn run build:mac
+            # Only build without release if it is a fork
+            - name: Build on Mac
+              if: startsWith(matrix.os, 'macOS') && github.repository != 'ArjixWasTaken/crunchydesk'
+              run: |
+                  yarn run build:mac
 
-      - name: Build on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository != 'th-ch/youtube-music'
-        run: |
-          yarn run build:linux
+            - name: Build on Linux
+              if: startsWith(matrix.os, 'ubuntu') && github.repository != 'ArjixWasTaken/crunchydesk'
+              run: |
+                  yarn run build:linux
 
-      - name: Build on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository != 'th-ch/youtube-music'
-        run: |
-          yarn run build:win
+            - name: Build on Windows
+              if: startsWith(matrix.os, 'windows') && github.repository != 'ArjixWasTaken/crunchydesk'
+              run: |
+                  yarn run build:win
 
-  release:
-    runs-on: ubuntu-latest
-    name: Release YouTube Music
-    if: github.repository == 'th-ch/youtube-music' && github.ref == 'refs/heads/master'
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    release:
+        runs-on: ubuntu-latest
+        name: Release Crunchydesk
+        if: github.repository == 'ArjixWasTaken/crunchydesk' && github.ref == 'refs/heads/master'
+        needs: build
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+            - name: Setup NodeJS
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
 
-      - name: Expose yarn config as "$GITHUB_OUTPUT"
-        id: yarn-config
-        shell: bash
-        run: |
-          echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+            - name: Expose yarn config as "$GITHUB_OUTPUT"
+              id: yarn-config
+              shell: bash
+              run: |
+                  echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
-      # Yarn rotates the downloaded cache archives, @see https://github.com/actions/setup-node/issues/325
-      # Yarn cache is also reusable between arch and os.
-      - name: Restore yarn cache
-        uses: actions/cache@v3
-        id: yarn-download-cache
-        with:
-          path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
-          key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-download-cache-
+            # Yarn rotates the downloaded cache archives, @see https://github.com/actions/setup-node/issues/325
+            # Yarn cache is also reusable between arch and os.
+            - name: Restore yarn cache
+              uses: actions/cache@v3
+              id: yarn-download-cache
+              with:
+                  path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
+                  key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
+                  restore-keys: |
+                      yarn-download-cache-
 
-      # Invalidated on yarn.lock changes
-      - name: Restore yarn install state
-        id: yarn-install-state-cache
-        uses: actions/cache@v3
-        with:
-          path: .yarn/ci-cache/
-          key: ${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
+            # Invalidated on yarn.lock changes
+            - name: Restore yarn install state
+              id: yarn-install-state-cache
+              uses: actions/cache@v3
+              with:
+                  path: .yarn/ci-cache/
+                  key: ${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          yarn install --immutable --inline-builds
-        env:
-          # CI optimizations. Overrides yarnrc.yml options (or their defaults) in the CI action.
-          YARN_ENABLE_GLOBAL_CACHE: "false" # Use local cache folder to keep downloaded archives
-          YARN_NM_MODE: "hardlinks-local" # Hardlinks-(local|global) reduces io / node_modules size
-          YARN_INSTALL_STATE_PATH: .yarn/ci-cache/install-state.gz # Very small speedup when lock does not change
+            - name: Install dependencies
+              shell: bash
+              run: |
+                  yarn install --immutable --inline-builds
+              env:
+                  # CI optimizations. Overrides yarnrc.yml options (or their defaults) in the CI action.
+                  YARN_ENABLE_GLOBAL_CACHE: "false" # Use local cache folder to keep downloaded archives
+                  YARN_NM_MODE: "hardlinks-local" # Hardlinks-(local|global) reduces io / node_modules size
+                  YARN_INSTALL_STATE_PATH: .yarn/ci-cache/install-state.gz # Very small speedup when lock does not change
 
-      - name: Get version
-        run: |
-          echo "VERSION_TAG=v$(node -pe "require('./package.json').version")" >> $GITHUB_ENV
+            - name: Get version
+              run: |
+                  echo "VERSION_TAG=v$(node -pe "require('./package.json').version")" >> $GITHUB_ENV
 
-      - name: Check if version already exists in tags
-        run: |
-          echo "VERSION_HASH=$(git rev-parse -q --verify 'refs/tags/${{ env.VERSION_TAG }}')" >> $GITHUB_ENV
-          echo "CHANGELOG_ANCHOR=$(echo $VERSION_TAG | sed -e 's/\.//g')" >> $GITHUB_ENV
+            - name: Check if version already exists in tags
+              run: |
+                  echo "VERSION_HASH=$(git rev-parse -q --verify 'refs/tags/${{ env.VERSION_TAG }}')" >> $GITHUB_ENV
+                  echo "CHANGELOG_ANCHOR=$(echo $VERSION_TAG | sed -e 's/\.//g')" >> $GITHUB_ENV
 
-      - name: Fetch draft release
-        if: ${{ env.VERSION_HASH == '' }}
-        uses: cardinalby/git-get-release-action@v1
-        id: get_draft_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          latest: true
-          draft: true
-          searchLimit: 1
+            - name: Fetch draft release
+              if: ${{ env.VERSION_HASH == '' }}
+              uses: cardinalby/git-get-release-action@v1
+              id: get_draft_release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+              with:
+                  latest: true
+                  draft: true
+                  searchLimit: 1
 
-      - name: Publish Release (if it does not exist)
-        if: ${{ env.VERSION_HASH == '' }}
-        uses: irongut/EditRelease@v1.2.0
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          id: ${{ steps.get_draft_release.outputs.id }}
-          draft: false
-          prerelease: false
-          replacename: true
-          name: ${{ env.VERSION_TAG }}
-          replacebody: true
-          body: |
-            See [changelog](https://github.com/th-ch/youtube-music/blob/master/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
+            - name: Publish Release (if it does not exist)
+              if: ${{ env.VERSION_HASH == '' }}
+              uses: irongut/EditRelease@v1.2.0
+              with:
+                  token: ${{ secrets.GH_TOKEN }}
+                  id: ${{ steps.get_draft_release.outputs.id }}
+                  draft: false
+                  prerelease: false
+                  replacename: true
+                  name: ${{ env.VERSION_TAG }}
+                  replacebody: true
+                  body: |
+                      See [changelog](https://github.com/ArjixWasTaken/crunchydesk/blob/master/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
 
-            Thanks to all contributors! 🏅
+                      Thanks to all contributors! 🏅
 
-      - name: Update changelog
-        if: ${{ env.VERSION_HASH == '' }}
-        run: |
-          yarn changelog
+            - name: Update changelog
+              if: ${{ env.VERSION_HASH == '' }}
+              run: |
+                  yarn changelog
 
-      - name: Commit changelog
-        if: ${{ env.VERSION_HASH == '' }}
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Update changelog for ${{ env.VERSION_TAG }}
-          file_pattern: "changelog.md"
-          commit_user_name: CI
-          commit_user_email: th-ch@users.noreply.github.com
+            - name: Commit changelog
+              if: ${{ env.VERSION_HASH == '' }}
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: Update changelog for ${{ env.VERSION_TAG }}
+                  file_pattern: "changelog.md"
+                  commit_user_name: ArjixWasTaken
+                  commit_user_email: 53124886+ArjixWasTaken@users.noreply.github.com

@@ -32,6 +32,10 @@ module.exports.listenAction = (channel, callback) => {
     return ipcMain.on(channel, callback);
 };
 
+module.exports.fetch = function () {
+    ipcRenderer.invokeSync("http-fetch", arguments);
+};
+
 module.exports.fileExists = (
     path,
     callbackIfExists,

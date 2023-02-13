@@ -17,22 +17,32 @@ module.exports = () => {
     // Preload adblocker to inject scripts/styles
     require("@cliqz/adblocker-electron-preload/dist/preload.cjs");
 
-    registerCallback((xhr) => {
-        let json;
+    registerCallback(async (xhr) => {
+        let json = {};
 
         // prettier-ignore
         try {
             json = JSON.parse(xhr.responseText);
-        } catch (e) { return; }
+        } catch (e) {  }
 
         removeAllAdBreaks(json);
 
+        let handled = false;
         for (const route of routes) {
             if (route.predicate(xhr, json)) {
-                route.handler(xhr, json);
+                await route.handler(xhr, json);
+                handled = true;
             }
         }
 
-        xhr.response = xhr.responseText = JSON.stringify(json);
+        if (handled) {
+            xhr.response = xhr.responseText = JSON.stringify(json);
+        } else {
+            console.log(
+                "Unhandled request",
+                xhr.responseURL,
+                JSON.stringify(json)
+            );
+        }
     });
 };

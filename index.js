@@ -2,6 +2,7 @@
 const path = require("path");
 
 const electron = require("electron");
+const { ipcMain } = require("electron");
 const enhanceWebRequest = require("electron-better-web-request").default;
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
@@ -13,6 +14,16 @@ const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 const { setupAppControls, restart } = require("./providers/app-controls");
+const fetch = require("node-fetch");
+
+ipcMain.handle("http-fetch", async function (event, arg) {
+    console.log("[ipcMain] [http-fetch]", arg);
+    return await fetch(arg).then((res) => res.text());
+});
+
+ipcMain.on("log-to-console", function (event, args) {
+    console.log("[ipcMain] [log-to-console]", args);
+});
 
 // Catch errors and log them
 unhandled({
@@ -320,6 +331,7 @@ app.once("browser-window-created", (event, win) => {
                 ) {
                     details.requestHeaders["User-Agent"] = originalUserAgent;
                 }
+
                 cb({ requestHeaders: details.requestHeaders });
             }
         );

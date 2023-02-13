@@ -32,7 +32,7 @@ module.exports = {
         };
 
         XHR.send = function (postData) {
-            this.addEventListener("load", function () {
+            this.addEventListener("load", async function () {
                 if (this._url?.toLowerCase()) {
                     // here you get the RESPONSE HEADERS
                     var responseHeaders = this.getAllResponseHeaders();
@@ -71,9 +71,13 @@ module.exports = {
 
                         for (const cb of callbacks) {
                             try {
-                                cb(this);
-                            } catch {
-                                console.log("Error in callback", cb);
+                                await cb(this);
+                            } catch (e) {
+                                console.log(
+                                    "Error in callback",
+                                    e,
+                                    this.responseText
+                                );
                             }
                         }
                     }
